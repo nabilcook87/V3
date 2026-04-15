@@ -85,7 +85,7 @@ with col1:
         with c2:
             T_cond = st.number_input("Max Liquid Temperature (°C)", value=40.0, step=1.0)
             minliq_temp = st.number_input("Min Liquid Temperature (°C)", value=20.0, step=1.0)
-            max_penalty = st.number_input("Max Penalty (K)", value=3.0, step=0.5, min_value=0.0)
+            max_penalty = st.number_input("Max Penalty (K)", value=1.0, step=0.5, min_value=0.0)
             if refrigerant == "R744 TC":
                 gc_min_pres = st.number_input("R744 TC: GC min pressure (bar abs)", value=75.0, step=1.0)
             circuit = "Suction"
