@@ -303,7 +303,7 @@ st.session_state.topology_df = topo
 all_labels_list = [x for x in topo["Label"].astype(str).str.strip().tolist() if x]
 for lab in all_labels_list:
     if lab not in st.session_state.segment_meta:
-        st.session_state.segment_meta[lab] = DEFAULT_SEG.copy()
+        st.session_state.segment_meta[lab] = DEFAULT_SEG_BY_LABEL.get(lab, DEFAULT_SEG).copy()
 
 # drop removed
 all_labels_set = set(all_labels_list)
