@@ -158,19 +158,23 @@ st.subheader("Network Topology")
 
 DEFAULT_TOPO = pd.DataFrame(
     [
-        {"Label": "E1", "Next Label": "N1", "Terminal": True, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
-        {"Label": "E2", "Next Label": "N1", "Terminal": True, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
-        {"Label": "N1", "Next Label": "H1", "Terminal": False, "Header": False, "mode_override": "Single Riser", "junction_type": 1},
+        {"Label": "E1", "Next Label": "C1", "Terminal": True, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
+        {"Label": "E2", "Next Label": "C1", "Terminal": True, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
+        {"Label": "N1", "Next Label": "C2", "Terminal": False, "Header": False, "mode_override": "Double Riser", "junction_type": 1},
         {"Label": "H1", "Next Label": "", "Terminal": False, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
-        {"Label": "E3", "Next Label": "N2", "Terminal": True, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
-        {"Label": "E4", "Next Label": "N2", "Terminal": True, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
-        {"Label": "N2", "Next Label": "H1", "Terminal": False, "Header": False, "mode_override": "Single Riser", "junction_type": 1},
+        {"Label": "E3", "Next Label": "C3", "Terminal": True, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
+        {"Label": "E4", "Next Label": "C3", "Terminal": True, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
+        {"Label": "N2", "Next Label": "C4", "Terminal": False, "Header": False, "mode_override": "Double Riser", "junction_type": 1},
+        {"Label": "C1", "Next Label": "N1", "Terminal": False, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
+        {"Label": "C2", "Next Label": "H1", "Terminal": False, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
+        {"Label": "C3", "Next Label": "N2", "Terminal": False, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
+        {"Label": "C4", "Next Label": "H1", "Terminal": False, "Header": False, "mode_override": "Horizontal", "junction_type": 1},
     ]
 )
 
 DEFAULT_SEG = {
     "duty_kw": 0.0,
-    "L": 0.0,
+    "L": 0.1,
     "SRB": 0,
     "LRB": 0,
     "_45": 0,
@@ -185,6 +189,20 @@ DEFAULT_SEG = {
     # Tee / junction connection type for the *downstream* segment when it joins an upstream main.
     # Mirrors legacy VB: 1 = side (90°), 2 = end (180°).
     "junction_type": 1,
+}
+
+DEFAULT_SEG_BY_LABEL = {
+    "E1": {**DEFAULT_SEG, "duty_kw": 2.5, "L": 1.0, "SRB": 3, "LRB": 0, "ptrap": 0, "ball": 1},
+    "E2": {**DEFAULT_SEG, "duty_kw": 1.8, "L": 1.0, "SRB": 3, "LRB": 0, "ptrap": 0, "ball": 1},
+    "N1": {**DEFAULT_SEG, "L": 4.0, "SRB": 0, "LRB": 0, "ptrap": 2, "ball": 0, "required_oil_override": 20.0},
+    "H1": {**DEFAULT_SEG, "L": 20.0, "SRB": 3, "LRB": 5, "ptrap": 0, "ball": 1},
+    "E3": {**DEFAULT_SEG, "duty_kw": 5.7, "L": 1.0, "SRB": 3, "LRB": 0, "ptrap": 0, "ball": 1},
+    "E4": {**DEFAULT_SEG, "duty_kw": 8.4, "L": 1.0, "SRB": 3, "LRB": 0, "ptrap": 0, "ball": 1},
+    "N2": {**DEFAULT_SEG, "L": 4.0, "SRB": 0, "LRB": 0, "ptrap": 2, "ball": 0, "required_oil_override": 20.0},
+    "C1": {**DEFAULT_SEG},
+    "C2": {**DEFAULT_SEG},
+    "C3": {**DEFAULT_SEG},
+    "C4": {**DEFAULT_SEG},
 }
 
 def _strongest_gauge(material_df, size_inch: str):
